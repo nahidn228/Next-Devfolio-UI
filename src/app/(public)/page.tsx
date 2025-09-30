@@ -1,6 +1,9 @@
+import HeroSection from "@/components/module/home/HeroSection";
+
 export default function Home() {
   return (
     <div>
+      <HeroSection />
       <DummyContent />
     </div>
   );

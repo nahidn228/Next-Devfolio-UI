@@ -4,6 +4,7 @@ import { Github, Twitter, BookOpen, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import Logo from "@/components/module/logo/logo";
 
 const Footer = () => {
   return (
@@ -20,26 +21,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href={"/"}>
-              <div className="flex items-center gap-1 md:gap-2">
-                <div className="text-[oklch(0.623_0.214_259.815)]">
-                  <Image
-                    src="https://img.icons8.com/?size=96&id=8gR77jBNhfyz&format=png"
-                    alt="Blue Icon"
-                    width={24}
-                    height={20}
-                    className="mix-blend-multiply"
-                  />
-                </div>
-
-                <span className="text-lg text-primary md:text-xl lg:text-2xl font-semibold  ">
-                  PIC SEEK
-                </span>
-              </div>
-            </Link>
+            <Logo />
             <p className="text-base text-muted-foreground leading-relaxed">
-              Lets convert your creativity in the next level with Pic-Seek-AI.
-              Find, Analyze & Explore Images Smarter with AI!
+              Nahid Hasan – Full Stack Developer. Crafted with ❤️ using Next.js & Prisma.
             </p>
           </div>
 
@@ -49,29 +33,30 @@ const Footer = () => {
               Quick Links
             </h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/"
-                  className="text-base text-muted-foreground hover:text-primary transition-colors duration-200"
-                >
-                  Home
-                </Link>
-              </li>
+              
 
               <li>
                 <Link
-                  href="/create"
+                  href="/blog"
                   className="text-base text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
-                  Create
+                  Blog
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/creation"
+                  href="/about-me"
                   className="text-base text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
-                  Creation
+                  About Me
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/projects"
+                  className="text-base text-muted-foreground hover:text-primary transition-colors duration-200"
+                >
+                  My Projects
                 </Link>
               </li>
               <li>
@@ -97,8 +82,6 @@ const Footer = () => {
                   className="text-base text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
                   Painting
-                 
- 
                 </Link>
               </li>
               <li>
@@ -107,8 +90,6 @@ const Footer = () => {
                   className="text-base text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
                   Animated-Image
-              
-
                 </Link>
               </li>
               <li>
@@ -116,8 +97,7 @@ const Footer = () => {
                   href="#"
                   className="text-base text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
-                  Wallpaper  
-  
+                  Wallpaper
                 </Link>
               </li>
               <li>
@@ -125,11 +105,9 @@ const Footer = () => {
                   href="#"
                   className="text-base text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
-                  Poster 
- 
+                  Poster
                 </Link>
               </li>
-              
             </ul>
           </div>
 
@@ -181,33 +159,34 @@ const Footer = () => {
             </div>
 
             <p className="text-sm text-muted-foreground">
-              Built with React, TypeScript, <br /> and shadcn/ui
+              Built with Next.js, TypeScript, <br /> and shadcn/ui
             </p>
           </div>
         </div>
 
         {/* Bottom section with glassmorphism effect */}
         <div className="mt-8 pt-8 border-t border-primary/20 text-center">
-         
-            <p className="text-base text-muted-foreground font-mono">
-              © {new Date().getFullYear()} PIC SEEK. All rights reserved. Built
-              for educational purposes.
-            </p>
-            <p className="text-base text-muted-foreground hover:text-primary mt-2">
+          <p className="text-base text-muted-foreground font-mono">
+            © {new Date().getFullYear()}{" "}
+            <a href="https://nahidhasan-portfolio.vercel.app/" target="_blank">
+              Nahid Hasan.
+            </a>
+            All rights reserved.
+          </p>
+          {/* <p className="text-base text-muted-foreground hover:text-primary mt-2">
               <a
                 href="https://nahidhasan-portfolio.vercel.app/"
                 target="_blank"
               >
                 Built by Nahid Hasan
               </a>
-            </p>
-          </div>
+            </p> */}
         </div>
+      </div>
 
-        {/* Decorative elements */}
-        <div className="absolute bottom-0 left-8 w-1 h-16 bg-gradient-to-t from-primary/40 to-transparent opacity-40"></div>
-        <div className="absolute bottom-0 right-8 w-1 h-16 bg-gradient-to-t from-primary/40 to-transparent opacity-40"></div>
-     
+      {/* Decorative elements */}
+      <div className="absolute bottom-0 left-8 w-1 h-16 bg-gradient-to-t from-primary/40 to-transparent opacity-40"></div>
+      <div className="absolute bottom-0 right-8 w-1 h-16 bg-gradient-to-t from-primary/40 to-transparent opacity-40"></div>
     </footer>
   );
 };

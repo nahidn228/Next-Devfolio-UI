@@ -127,7 +127,10 @@ export function LoginForm({
             )}
           />
 
-          <Button type="submit" className="w-full text-black">
+          <Button
+            type="submit"
+            className="w-full text-white cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center"
+          >
             Login
           </Button>
 
@@ -140,7 +143,7 @@ export function LoginForm({
           <Button
             variant="outline"
             onClick={() => handleSocialLogin("github")}
-            className="w-full"
+            className="w-full  cursor-pointer"
             type="button"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -157,7 +160,7 @@ export function LoginForm({
             type="button"
             variant="outline"
             onClick={() => handleSocialLogin("google")}
-            className="w-full flex items-center gap-2"
+            className="w-full flex items-center gap-2  cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

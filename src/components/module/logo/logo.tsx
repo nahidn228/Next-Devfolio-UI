@@ -12,7 +12,7 @@ export default function Logo() {
         initial={{ rotate: -15, opacity: 0 }}
         animate={{ rotate: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-10 h-10 flex items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-500 text-white shadow-lg group-hover:scale-110 transition"
+        className="w-10 h-10 flex items-center justify-center rounded-2xl bg-primary text-white shadow-lg group-hover:scale-110 transition"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@ export default function Logo() {
 
       {/* Logo Text */}
       <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-indigo-600 transition">
-        Dev<span className="text-indigo-600 dark:text-indigo-400">Folio</span>
+        Dev<span className="text-primary">Folio</span>
       </span>
     </Link>
   );

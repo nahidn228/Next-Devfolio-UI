@@ -22,17 +22,22 @@ export function NavbarPicSeek() {
   const user = session?.data?.user;
 
   const navItems = [
+    
     {
-      name: "Home",
-      link: "/",
+      name: "Blog",
+      link: "/blog",
     },
     {
-      name: "Create",
-      link: "/create",
+      name: "About Me",
+      link: "/about-me",
     },
     {
-      name: "Creation",
-      link: "/creation",
+      name: "My Projects",
+      link: "/projects",
+    },
+    {
+      name: "Contact",
+      link: "/contact",
     },
   ];
 
@@ -59,7 +64,7 @@ export function NavbarPicSeek() {
                 Logout
               </NavbarButton>
             ) : (
-              <NavbarButton href="/login" variant="primary">
+              <NavbarButton href="/login" variant="primary" className="bg-primary text-white">
                 Login
               </NavbarButton>
             )}

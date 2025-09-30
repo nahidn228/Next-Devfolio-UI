@@ -26,6 +26,7 @@ const signupSchema = z
       .string()
       .min(2, { message: "Full name must be at least 2 characters." }),
     email: z.string().email({ message: "Please enter a valid email." }),
+    phone: z.string(),
     password: z
       .string()
       .min(6, { message: "Password must be at least 6 characters." }),
@@ -52,6 +53,7 @@ export function SignupForm({
     defaultValues: {
       name: "",
       email: "",
+      phone:"",
       password: "",
       confirmPassword: "",
     },
@@ -110,6 +112,20 @@ export function SignupForm({
               </FormItem>
             )}
           />
+          {/* Phone */}
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone</FormLabel>
+                <FormControl>
+                  <Input type="tel" placeholder="+8801700000000" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Password */}
           <FormField
@@ -122,6 +138,7 @@ export function SignupForm({
                   <div className="relative">
                     <Input
                       type={showPassword ? "text" : "password"}
+                      placeholder="******"
                       {...field}
                       className="pr-10"
                     />
@@ -154,6 +171,7 @@ export function SignupForm({
                   <div className="relative">
                     <Input
                       type={showConfirm ? "text" : "password"}
+                      placeholder="******"
                       {...field}
                       className="pr-10"
                     />
@@ -176,7 +194,7 @@ export function SignupForm({
           />
 
           {/* Submit button */}
-          <Button type="submit" className="w-full text-black">
+          <Button type="submit" className="w-full text-white cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center">
             Sign Up
           </Button>
 
@@ -192,7 +210,7 @@ export function SignupForm({
             type="button"
             onClick={() => handleSocialRegister("github")}
             variant="outline"
-            className="w-full flex items-center gap-2"
+            className="w-full flex items-center gap-2 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +230,7 @@ export function SignupForm({
             type="button"
             onClick={() => handleSocialRegister("google")}
             variant="outline"
-            className="w-full flex items-center gap-2"
+            className="w-full flex items-center gap-2  cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

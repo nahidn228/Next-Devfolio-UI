@@ -13,6 +13,7 @@ import Link from "next/link";
 
 import React, { useRef, useState } from "react";
 import Logo from "../module/logo/logo";
+import { Divide } from "lucide-react";
 
 
 interface NavbarProps {
@@ -234,25 +235,12 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <Link
-      href="/"
+    <div
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal "
     >
       <Logo />
-      {/* <div className="flex items-center gap-1 md:gap-2">
-        <div>
-          <Image
-            src="https://img.icons8.com/?size=96&id=8gR77jBNhfyz&format=png"
-            alt="Blue Icon"
-            width={24}
-            height={20}
-          />
-        </div>
-        <span className="text-lg md:text-xl text-primary font-semibold  ">
-          PIC SEEK
-        </span>
-      </div> */}
-    </Link>
+      
+    </div>
   );
 };
 

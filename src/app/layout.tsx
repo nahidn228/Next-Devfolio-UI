@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pic Seek AI",
-  description: "AI-Powered Image Generator",
+  title: "Nahid Hasan",
+  description: "Full Stack Developer.",
   icons: {
     icon: "/favicon.png",
   },

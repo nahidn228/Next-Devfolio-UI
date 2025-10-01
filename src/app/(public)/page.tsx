@@ -1,11 +1,11 @@
 import HeroSection from "@/components/module/home/HeroSection";
-import { Resume } from "@/components/module/home/Resume";
+
 
 export default function Home() {
   return (
-    <div className="z-10">
+    <div className=" z-0">
       <HeroSection />
-      <Resume />
+      
       <DummyContent />
     </div>
   );

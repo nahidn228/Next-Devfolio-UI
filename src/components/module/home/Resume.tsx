@@ -171,7 +171,7 @@ export function Resume() {
     },
   ];
   return (
-    <div className="w-full" id="resume">
+    <div className="w-full pointer-events-none" >
       <Timeline data={data} />
     </div>
   );

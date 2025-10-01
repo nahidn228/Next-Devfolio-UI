@@ -8,10 +8,10 @@ const PublicLayout = ({
 }>) => {
   return (
     <>
-      <div className="sticky top-2 w-full">
+      <div className="fixed z-[9999] top-2 w-full">
         <NavbarPicSeek />
       </div>
-      <main className="min-h-dvh">{children}</main>
+      <main className="min-h-dvh z-0">{children}</main>
       <Footer />
     </>
   );

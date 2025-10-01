@@ -4,7 +4,7 @@ import { Skills } from "@/components/module/home/Skills";
 
 const page = () => {
   return (
-    <div>
+    <div className="my-20">
       <Hero1 />
       <Resume />
       <Skills />

@@ -1,11 +1,13 @@
 import FeaturedBlogs from "@/components/module/home/FeaturedBlog";
 import HeroSection from "@/components/module/home/HeroSection";
+import AboutMe from "@/components/module/home/AboutMe";
 
 export default function Home() {
   return (
     <div className=" z-0">
       <HeroSection />
       <FeaturedBlogs />
+      <AboutMe />
       <DummyContent />
     </div>
   );

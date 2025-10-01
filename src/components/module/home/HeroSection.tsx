@@ -8,7 +8,7 @@ import { SparklesCore } from "@/components/ui/sparkles";
 
 const HeroSection = () => {
   return (
-    <section className=" container mx-auto py-20 z-0">
+    <section className="relative container mx-auto py-4 my-20 md:py30 z-0">
      {/* <div className="w-full absolute inset-0 h-screen pointer-events-none">
         <SparklesCore
           id="tsparticlesfullpage"
@@ -21,11 +21,26 @@ const HeroSection = () => {
         />
       </div> */}
 
+
+ {/* Vertical lines */}
+      <div className="absolute inset-y-0 left-0 h-full w-px bg-neutral-200/80 dark:bg-neutral-800/80">
+        <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
+      </div>
+      <div className="absolute inset-y-0 right-0 h-full w-px bg-neutral-200/80 dark:bg-neutral-800/80">
+        <div className="absolute h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 h-px w-full bg-neutral-200/80 dark:bg-neutral-800/80">
+        <div className="absolute mx-auto h-px w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+      </div>
+
+
+
+
       <div className="w-full mx-auto flex flex-col-reverse items-center justify-between gap-12 lg:flex-row lg:gap-20 px-4">
         {/* Left Content */}
         <div className="flex flex-col gap-10 text-center items-center lg:items-start lg:text-left lg:max-w-2xl ">
           {/* Logo Icon */}
-          <div className="w-10 h-10 flex items-center justify-center rounded-2xl bg-primary text-white shadow-lg group-hover:scale-110 transition ">
+          <div className="w-10 h-10 flex items-center justify-center rounded-2xl bg-primary text-white shadow-lg group-hover:scale-110 transition animate-pulse">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-6"
@@ -93,7 +108,7 @@ const HeroSection = () => {
             width={600}
             height={600}
             quality={100}
-            className="rounded-lg object-cover shadow-xl"
+            className="rounded-lg object-cover "
           />
         </div>
       </div>

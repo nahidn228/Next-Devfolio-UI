@@ -16,6 +16,7 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
+    "@react-three/fiber": "^9.0.0-alpha.8",
     "@tabler/icons-react": "^3.35.0",
     "@tsparticles/engine": "^3.9.1",
     "@tsparticles/react": "^3.0.0",
@@ -34,6 +35,7 @@
     "simplex-noise": "^4.0.3",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
+    "three": "^0.180.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {
@@ -42,6 +44,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.180.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "tailwindcss": "^4",

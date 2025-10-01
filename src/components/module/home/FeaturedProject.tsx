@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Cover } from "@/components/ui/cover";
+import Link from "next/link";
 
 interface Story {
   id: number;
@@ -111,7 +112,7 @@ export default function CarouselCards() {
   return (
     <div className="font-sans w-full py-12 md:py-20 flex flex-col items-center justify-center">
       <div className="w-full max-w-7xl mx-auto px-4">
-        <header className="text-center mb-12">
+        <header className="text-center">
           <h2 className="mx-auto text-center text-white text-2xl md:text-4xl font-sans py-2 md:pt-10 relative z-20 font-bold tracking-tight">
             <Cover>Explore My Projects</Cover>
           </h2>
@@ -142,15 +143,15 @@ export default function CarouselCards() {
         </motion.div>
 
         <div className="mt-10 flex items-center justify-center">
-          <a
-            href="#"
+          <Link
+            href="/projects"
             className="text-gray-300 font-semibold hover:text-white transition-colors duration-300 group"
           >
             Discover More
             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 ml-1">
               &rarr;
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

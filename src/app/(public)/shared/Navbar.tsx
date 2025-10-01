@@ -40,6 +40,10 @@ export function NavbarPicSeek() {
       name: "Contact",
       link: "/contact",
     },
+    {
+      name: "Dashboard",
+      link: "/dashboard",
+    },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

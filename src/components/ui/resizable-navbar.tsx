@@ -8,13 +8,10 @@ import {
   useScroll,
 } from "framer-motion";
 
-
 import Link from "next/link";
 
 import React, { useRef, useState } from "react";
 import Logo from "../module/logo/logo";
-
-
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -73,7 +70,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   return (
     <motion.div
       ref={ref}
-      className={cn("stick inset-x-0 top-0 z-[9999]   w-full", className)}
+      className={cn("sticky  top-2 z-[101]  w-full", className)}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
@@ -235,11 +232,8 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <div
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal "
-    >
+    <div className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal ">
       <Logo />
-      
     </div>
   );
 };

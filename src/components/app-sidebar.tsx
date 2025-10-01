@@ -124,12 +124,12 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
+      name: "All Projects",
+      url: "/dashboard/projects",
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
+      name: "All Blogs",
       url: "#",
       icon: PieChart,
     },
@@ -148,8 +148,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <Logo />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
+        {/* <NavMain items={data.navMain} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -4,25 +4,15 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 import Link from "next/link";
-import { SparklesCore } from "@/components/ui/sparkles";
+
+
 
 const HeroSection = () => {
   return (
-    <section className="relative container mx-auto py-4 my-20 md:py30 z-0">
-     {/* <div className="w-full absolute inset-0 h-screen pointer-events-none">
-        <SparklesCore
-          id="tsparticlesfullpage"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={100}
-          className="w-full h-full"
-          particleColor="#FFFFFF"
-        />
-      </div> */}
+    <section className="relative container mx-auto py-4  z-0">
+      
 
-
- {/* Vertical lines */}
+      {/* Vertical lines */}
       <div className="absolute inset-y-0 left-0 h-full w-px bg-neutral-200/80 dark:bg-neutral-800/80">
         <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
       </div>
@@ -32,9 +22,6 @@ const HeroSection = () => {
       <div className="absolute inset-x-0 bottom-0 h-px w-full bg-neutral-200/80 dark:bg-neutral-800/80">
         <div className="absolute mx-auto h-px w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
       </div>
-
-
-
 
       <div className="w-full mx-auto flex flex-col-reverse items-center justify-between gap-12 lg:flex-row lg:gap-20 px-4">
         {/* Left Content */}

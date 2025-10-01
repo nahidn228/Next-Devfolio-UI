@@ -6,6 +6,7 @@ import {
   motion,
 } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
+import { Cover } from "./cover";
 
 interface TimelineEntry {
   title: string;
@@ -37,12 +38,17 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       className="w-full bg-white dark:bg-neutral-950 font-sans md:px-10"
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto py-10 px-4 md:px-8 lg:px-10">
-        <h2 className=" md:text-4xl mb-4 text-3xl font-bold text-pretty">
-          Changelog from my journey
+      <div className="max-w-7xl flex flex-col items-center justify-center w-full mx-auto py-10 px-4 md:px-8 lg:px-10">
+        <h2 className="mx-auto text-center text-white text-2xl md:text-4xl font-sans py-2 md:pt-10 relative z-20 font-bold tracking-tight">
+          <Cover>Changelog from my journey</Cover>
         </h2>
-        <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-lg">
-          From coding late nights to building full-stack projects, my journey has been all about growth, learning, and solving real-world problems. Over the past few years, I’ve worked on diverse projects ranging from e-commerce platforms to AI-powered applications—each one adding a new layer to my skills.
+
+        <p className="text-neutral-700 text-center dark:text-neutral-300 text-sm md:text-base max-w-xl py-8">
+          From coding late nights to building full-stack projects, my journey
+          has been all about growth, learning, and solving real-world problems.
+          Over the past few years, I’ve worked on diverse projects ranging from
+          e-commerce platforms to AI-powered applications—each one adding a new
+          layer to my skills.
         </p>
       </div>
 

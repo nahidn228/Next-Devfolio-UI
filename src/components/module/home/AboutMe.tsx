@@ -1,6 +1,7 @@
 "use client";
 import CodeProfile from "@/components/ui/CodeProfile";
-import { Cover } from "@/components/ui/cover";
+
+import Link from "next/link";
 import React from "react";
 
 // Self-contained SVG icon for the "Welcome" badge
@@ -18,20 +19,18 @@ const DotIcon = () => (
 
 const AboutMe = () => {
   return (
-    <section className="container mx-auto">
-      <h2 className="mx-auto text-center my-10 text-white text-2xl md:text-4xl font-sans py-2 md:pt-10 relative z-20 font-bold tracking-tight">
-        <Cover>About Me</Cover>
-      </h2>
-
+    <section className="container mx-auto py-20">
       <div className="  min-h-screen w-full relative flex items-center justify-center font-sans p-4 sm:p-6 lg:p-8">
-      
-
-       
-
         {/* Main Content Container */}
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 xl:gap-16 items-center">
             {/* Left Column: Text Content */}
+
+            <div className="order-1 lg:order-2 animate-fade-in-up">
+              <CodeProfile />
+            </div>
+
+            {/* Right Column: Code Editor */}
             <div className="flex flex-col gap-4 sm:gap-6 items-start text-left order-2 lg:order-1 animate-fade-in-up">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-900/80 dark:bg-white/10 border border-gray-700 dark:border-gray-600 rounded-full text-xs sm:text-sm text-gray-200 dark:text-gray-300 backdrop-blur-sm hover:bg-gray-800 dark:hover:bg-white/20 transition-all duration-300">
                 <DotIcon />
@@ -66,18 +65,20 @@ const AboutMe = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 w-full sm:w-auto">
-                <button className="px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95">
+                <Link
+                  href={"/about-me"}
+                  className="px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                >
                   Learn More
-                </button>
-                <button className="px-6 py-3 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 active:scale-95">
+                </Link>
+                <Link
+                  target="_blank"
+                  href="https://drive.google.com/file/d/1nJpci0Hm7NK3l0EdoLMSwUjpUMiMVKv9/view?usp=sharing"
+                  className="px-6 py-3 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
+                >
                   Get Resume
-                </button>
+                </Link>
               </div>
-            </div>
-
-            {/* Right Column: Code Editor */}
-            <div className="order-1 lg:order-2 animate-fade-in-up">
-              <CodeProfile />
             </div>
           </div>
         </div>

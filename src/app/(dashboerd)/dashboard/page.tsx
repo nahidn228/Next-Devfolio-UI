@@ -1,27 +1,15 @@
 import BlogTable from "@/components/module/dashbord/blog/BlogTable";
 import ProjectTable from "@/components/module/dashbord/project/ProjectTable";
-
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  thumbnail: string;
-  isFeatured: boolean;
-  views: number;
-  author: {
-    id: number;
-    name: string;
-  };
-}
+import { authOptions } from "@/helpers/authOptions";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`, {
-    cache: "no-store",
-  });
-  const { data } = await res.json();
+  const session = await getServerSession(authOptions);
 
-  const allBlogs = data?.data;
-  console.log(allBlogs);
+  if (!session) {
+    redirect("/login");
+  }
   return (
     <div>
       <BlogTable />

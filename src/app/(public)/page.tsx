@@ -4,6 +4,7 @@ import AboutMe from "@/components/module/home/AboutMe";
 import CarouselCards from "@/components/module/home/FeaturedProject";
 import OrbitingSkills from "@/components/module/home/OrbitSkill";
 import { Testimonials } from "@/components/module/home/Testimonials";
+import HomeProject from "@/components/module/home/HomeProject";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <AboutMe />
       <HeroSection />
       <FeaturedBlogs />
-      <CarouselCards />
+      <HomeProject />
+      {/* <CarouselCards /> */}
       <OrbitingSkills />
       <Testimonials />
     </div>

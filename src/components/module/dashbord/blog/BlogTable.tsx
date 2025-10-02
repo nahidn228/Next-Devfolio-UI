@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { ChevronFirst, ChevronLast } from "lucide-react";
+import Loader from "@/app/(dashboerd)/dashboard/loading";
 
 type Blog = {
   id: number;
@@ -71,7 +72,7 @@ const BlogTable = () => {
   const totalPages = Math.ceil(total / limit) || 1;
   const paginatedData = filteredBlogs.slice((page - 1) * limit, page * limit);
 
-  if (loading) return <p className="text-center">Loading blogs...</p>;
+  if (loading) return <Loader />;
 
   return (
     <section className="container mx-auto px-4">

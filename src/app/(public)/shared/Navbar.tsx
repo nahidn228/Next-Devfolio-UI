@@ -14,16 +14,30 @@ import {
 
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function NavbarLayout() {
   const session = useSession();
+  const router = useRouter();
   console.log(session?.data?.user);
+
+  const handleLogout = () => {
+    const toastId = toast.loading("please wait ....");
+    try {
+      signOut();
+      toast.success("Logout Successfully", { id: toastId });
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", { id: toastId });
+    }
+  };
 
   const user = session?.data?.user;
 
   const navItems = [
-    
     {
       name: "Blog",
       link: "/blog",
@@ -48,7 +62,6 @@ export function NavbarLayout() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-
   return (
     <div>
       <Navbar>
@@ -62,15 +75,18 @@ export function NavbarLayout() {
             </NavbarButton>
             {user ? (
               <NavbarButton
-                href="/login"
-                onClick={() => signOut()}
+                onClick={() => handleLogout()}
                 className="bg-orange-500 text-white"
                 variant="primary"
               >
                 Logout
               </NavbarButton>
             ) : (
-              <NavbarButton href="/login" variant="primary" className="bg-primary text-white">
+              <NavbarButton
+                href="/login"
+                variant="primary"
+                className="bg-primary text-white"
+              >
                 Login
               </NavbarButton>
             )}

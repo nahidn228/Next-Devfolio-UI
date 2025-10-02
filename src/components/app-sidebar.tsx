@@ -1,24 +1,19 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
-
   BookOpen,
   Bot,
-
   Frame,
-
   MessageSquarePlus,
-
   PieChart,
   Settings2,
   SquarePlus,
   SquareTerminal,
-} from "lucide-react"
+} from "lucide-react";
 
-
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
+import { NavProjects } from "@/components/nav-projects";
+import { NavUser } from "@/components/nav-user";
 
 import {
   Sidebar,
@@ -26,16 +21,20 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import Logo from "./module/logo/logo"
+} from "@/components/ui/sidebar";
+import Logo from "./module/logo/logo";
+import { useSession } from "next-auth/react";
+
+interface IUser {
+  name: string;
+  email: string;
+  image: string;
+  id: string;
+}
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
+
 
   navMain: [
     {
@@ -132,7 +131,7 @@ const data = {
     },
     {
       name: "All Blogs",
-      url: "#",
+      url: "/dashboard/blogs",
       icon: PieChart,
     },
     {
@@ -143,12 +142,16 @@ const data = {
     {
       name: "Add Blog",
       url: "/dashboard/add-blog",
-      icon: MessageSquarePlus ,
+      icon: MessageSquarePlus,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const session = useSession();
+  const user = session?.data?.user;
+  if (!user) return null;
+  console.log(user);
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -159,9 +162,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavMain items={data.navMain} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser
+          user={{
+            name: user.name ?? "Unknown",
+            email: user.email ?? "No email",
+            avatar: user.image ?? "/default-avatar.png",
+          }}
+        />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

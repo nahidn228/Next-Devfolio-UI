@@ -1,4 +1,4 @@
-import AddProjectForm from "@/components/module/dashbord/addProjectForm";
+import AddProjectForm from "@/components/module/dashbord/project/addProjectForm";
 
 const CreateProject = () => {
   return (

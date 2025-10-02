@@ -1,4 +1,4 @@
-import AddBlogForm from "@/components/module/dashbord/AddBlogForm";
+import AddBlogForm from "@/components/module/dashbord/blog/AddBlogForm";
 
 const CreateBlog = () => {
   return (

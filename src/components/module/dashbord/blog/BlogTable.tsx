@@ -125,7 +125,9 @@ const BlogTable = () => {
                     className="rounded object-cover"
                   />
                 </TableCell>
-                <TableCell className="font-medium">{blog.title}</TableCell>
+                <TableCell className="font-medium max-w-[200px] truncate">
+                  {blog.title}
+                </TableCell>
                 <TableCell>{blog.author?.name}</TableCell>
                 <TableCell>{blog.views}</TableCell>
                 <TableCell>

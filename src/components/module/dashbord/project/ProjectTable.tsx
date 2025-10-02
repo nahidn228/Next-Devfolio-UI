@@ -128,7 +128,9 @@ const ProjectTable = () => {
                     className="rounded object-cover"
                   />
                 </TableCell>
-                <TableCell className="font-medium">{project.title}</TableCell>
+                <TableCell className="font-medium max-w-[200px] truncate">
+                  {project.title}
+                </TableCell>
                 <TableCell>
                   <p className="font-medium">{project.author?.name}</p>
                   <p className="text-sm text-muted-foreground">

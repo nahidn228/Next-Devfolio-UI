@@ -48,12 +48,18 @@ export default function AddBlogForm() {
   async function onSubmit(values: BlogFormValues) {
     console.log("🚀 Blog Data:", values);
     const toastId = toast.loading("Creating Blog...");
-
-    const res = await createBlog(values);
-    console.log(res);
-    if (res?.success === true) {
-      toast.success("Blog creation success", { id: toastId });
-      router.push("/dashboard/blogs");
+    try {
+      const res = await createBlog(values);
+      console.log(res);
+      if (res?.success === true) {
+        toast.success("Blog creation success", { id: toastId });
+        router.push("/dashboard/blogs");
+      } else {
+        toast.error("Blog creation failed", { id: toastId });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Blog creation failed", { id: toastId });
     }
   }
 

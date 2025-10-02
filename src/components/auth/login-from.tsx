@@ -47,18 +47,27 @@ export function LoginForm({
     },
   });
 
-  const onSubmit = (values: LoginFormValues) => {
+  const onSubmit = async (values: LoginFormValues) => {
     const toastId = toast.loading("Please wait...");
     console.log("Form Submitted:", values);
 
     try {
-      signIn("credentials", {
-        ...values,
-        callbackUrl: "/dashboard",
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: values.email,
+        password: values.password,
       });
-      toast.success("User Login successfully", { id: toastId });
+
+      if (res?.error) {
+        console.error("Login failed:", res.error);
+        toast.error("User Login Failed", { id: toastId });
+      } else {
+        toast.success("User Login Successfully", { id: toastId });
+
+        router.push("/dashboard");
+      }
     } catch (error) {
-      console.error(error);
+      console.error("SignIn error:", error);
       toast.error("User Login Failed", { id: toastId });
     }
   };

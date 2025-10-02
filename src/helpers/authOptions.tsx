@@ -28,52 +28,54 @@ export const authOptions: NextAuthOptions = {
 
     CredentialsProvider({
       name: "Credentials",
-
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.password || !credentials.email) {
-          console.error("Email or Password is missing");
+        if (!credentials?.email || !credentials?.password) {
+          console.error("❌ Missing email or password", credentials);
           return null;
         }
-
         try {
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/auth/login`,
             {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 email: credentials.email,
                 password: credentials.password,
               }),
             }
           );
-          if (!res?.ok) {
-            console.error("User Login Failed", await res.text());
+
+          console.log("🔎 Backend response status:", res.status);
+          if (!res.ok) {
+            console.error("❌ Login failed:", await res.text());
             return null;
           }
 
-          const user = await res.json();
+          const result = await res.json();
+          console.log("✅ Backend response JSON:", result);
+
+          // ✅ Your backend returns { success, message, data }
+          const user = result?.data;
 
           if (user?.id) {
             return {
-              id: user?.id,
-              name: user?.name,
-              email: user?.email,
-              role: user?.role,
-              phone: user?.phone,
-              image: user?.picture,
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              image: user.picture || "",
+              role: user.role,
+              phone: user.phone,
             };
-          } else {
-            return null;
           }
+          console.error("❌ No user in response");
+          return null;
         } catch (error) {
-          console.error(error);
+          console.error("❌ Authorize error:", error);
           return null;
         }
       },

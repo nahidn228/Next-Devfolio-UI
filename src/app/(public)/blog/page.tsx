@@ -101,7 +101,7 @@ const BlogPage = ({
                     </div>
                   </div>
                   <h3 className="text-xl font-semibold md:text-2xl lg:text-3xl">
-                    <Link href="#" className="hover:underline">
+                    <Link href={`/blog/${post.id}`} className="hover:underline">
                       {post.title}
                     </Link>
                   </h3>
@@ -109,20 +109,22 @@ const BlogPage = ({
                     {post.content}
                   </p>
                   <div className="mt-6 flex items-center space-x-4 text-sm md:mt-8">
-                    <span className="text-muted-foreground">{post.author.name}</span>
+                    <span className="text-muted-foreground">
+                      {post.author.name}
+                    </span>
                     <span className="text-muted-foreground">•</span>
                     <span className="text-muted-foreground">
                       {new Date(post.createdAt).toLocaleDateString()}
                     </span>
                   </div>
                   <div className="mt-6 flex items-center space-x-2 md:mt-8">
-                    <a
-                      href="#"
+                    <Link
+                      href={`/blog/${post.id}`}
                       className="inline-flex items-center font-semibold hover:underline md:text-base"
                     >
                       <span>Read more</span>
                       <ArrowRight className="ml-2 size-4 transition-transform" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="order-first sm:order-last sm:col-span-5">

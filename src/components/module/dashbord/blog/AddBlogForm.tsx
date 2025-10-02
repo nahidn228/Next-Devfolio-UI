@@ -17,6 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { createBlog } from "@/action/create";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 // ✅ Validation schema
 const blogSchema = z.object({
@@ -30,6 +33,7 @@ const blogSchema = z.object({
 type BlogFormValues = z.infer<typeof blogSchema>;
 
 export default function AddBlogForm() {
+  const router = useRouter();
   const form = useForm<BlogFormValues>({
     resolver: zodResolver(blogSchema),
     defaultValues: {
@@ -41,17 +45,22 @@ export default function AddBlogForm() {
     },
   });
 
-  function onSubmit(values: BlogFormValues) {
+  async function onSubmit(values: BlogFormValues) {
     console.log("🚀 Blog Data:", values);
-    // You can parse tags into array if needed:
-    const tagsArray = values.tags ? values.tags.split(",").map(t => t.trim()) : [];
-    console.log("Tags Array:", tagsArray);
+    const toastId = toast.loading("Creating Blog...");
+
+    const res = await createBlog(values);
+    console.log(res);
+    if (res?.success === true) {
+      toast.success("Blog creation success", { id: toastId });
+      router.push("/dashboard/blogs");
+    }
   }
 
   return (
-    <Card className="max-w-4xl w-full mx-auto mt-10">
+    <Card className="max-w-2xl mx-auto mt-10 p-4 bg-background border rounded-lg shadow">
       <CardHeader>
-        <h2 className="text-xl font-bold">Add New Blog</h2>
+        <h2 className="text-xl text-center font-bold">Add New Blog</h2>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -79,7 +88,10 @@ export default function AddBlogForm() {
                 <FormItem>
                   <FormLabel>Content</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Write your blog content..." {...field} />
+                    <Textarea
+                      placeholder="Write your blog content..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -94,7 +106,10 @@ export default function AddBlogForm() {
                 <FormItem>
                   <FormLabel>Thumbnail URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://example.com/image.png" {...field} />
+                    <Input
+                      placeholder="https://example.com/image.png"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,7 +126,10 @@ export default function AddBlogForm() {
                     <FormLabel>Is Featured?</FormLabel>
                   </div>
                   <FormControl>
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
                 </FormItem>
               )}

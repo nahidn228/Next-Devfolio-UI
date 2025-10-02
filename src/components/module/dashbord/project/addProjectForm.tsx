@@ -16,12 +16,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 // ✅ Validation schema
 const projectSchema = z.object({
   title: z.string().min(3, "Title is required"),
-  description: z.string().min(10, "Description should be at least 10 characters"),
+  description: z
+    .string()
+    .min(10, "Description should be at least 10 characters"),
   thumbnail: z.string().url("Thumbnail must be a valid URL"),
   liveUrl: z.string().url().optional().or(z.literal("")),
   repoUrl: z.string().url("Repository URL must be valid"),
@@ -52,8 +54,11 @@ export default function AddProjectForm() {
   }
 
   return (
-    <Card className="max-w-4xl w-full mx-auto mt-10">
-      
+    <Card className="max-w-2xl mx-auto mt-10 p-4 bg-background border rounded-lg shadow">
+      <CardHeader>
+        <h2 className="text-xl text-center font-bold">Add New Project</h2>
+      </CardHeader>
+
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -80,7 +85,10 @@ export default function AddProjectForm() {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Write project description..." {...field} />
+                    <Textarea
+                      placeholder="Write project description..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -95,7 +103,10 @@ export default function AddProjectForm() {
                 <FormItem>
                   <FormLabel>Thumbnail URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://example.com/image.png" {...field} />
+                    <Input
+                      placeholder="https://example.com/image.png"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,7 +136,10 @@ export default function AddProjectForm() {
                 <FormItem>
                   <FormLabel>Repository URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://github.com/user/project" {...field} />
+                    <Input
+                      placeholder="https://github.com/user/project"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -142,7 +156,10 @@ export default function AddProjectForm() {
                     <FormLabel>Is Featured?</FormLabel>
                   </div>
                   <FormControl>
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
                 </FormItem>
               )}

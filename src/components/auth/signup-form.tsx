@@ -20,6 +20,9 @@ import {
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 
+import { toast } from "sonner";
+import { registerUser } from "@/action/auth";
+
 // ✅ Validation schema
 const signupSchema = z
   .object({
@@ -48,25 +51,30 @@ export function SignupForm({
 }: React.ComponentProps<"form">) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
       name: "",
       email: "",
-      phone:"",
+      phone: "",
       password: "",
       confirmPassword: "",
     },
   });
 
-  const onSubmit = async(values: SignupFormValues) => {
-    console.log("Signup Data:", values);
+  const onSubmit = async (values: SignupFormValues) => {
+    const toastId = toast.loading("Please wait...");
+    const { confirmPassword, ...data } = values;
+
+    console.log("Signup Data:", data);
+
     try {
-      const res = await registerUser(values);
-      if (res?.id) {
-        toast.success("User created successfully");
+      const res = await registerUser(data);
+      console.log(res);
+      if (res?.data?.id) {
+        toast.success("User created successfully", { id: toastId });
         router.push("/login");
       }
     } catch (error) {
@@ -204,7 +212,10 @@ export function SignupForm({
           />
 
           {/* Submit button */}
-          <Button type="submit" className="w-full text-white cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center">
+          <Button
+            type="submit"
+            className="w-full text-white cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center"
+          >
             Sign Up
           </Button>
 

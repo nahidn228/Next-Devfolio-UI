@@ -18,6 +18,7 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
 
 // ✅ Validation schema
 const signupSchema = z
@@ -47,6 +48,7 @@ export function SignupForm({
 }: React.ComponentProps<"form">) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const router = useRouter()
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
@@ -59,9 +61,17 @@ export function SignupForm({
     },
   });
 
-  const onSubmit = (values: SignupFormValues) => {
+  const onSubmit = async(values: SignupFormValues) => {
     console.log("Signup Data:", values);
-    // 🔑 Handle signup request here
+    try {
+      const res = await registerUser(values);
+      if (res?.id) {
+        toast.success("User created successfully");
+        router.push("/login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSocialRegister = (provider: "google" | "github") => {

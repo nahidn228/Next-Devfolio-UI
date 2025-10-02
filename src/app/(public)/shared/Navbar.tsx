@@ -16,7 +16,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
-export function NavbarPicSeek() {
+export function NavbarLayout() {
   const session = useSession();
   console.log(session?.data?.user);
 
@@ -64,7 +64,7 @@ export function NavbarPicSeek() {
               <NavbarButton
                 href="/login"
                 onClick={() => signOut()}
-                className="bg-orange-500 "
+                className="bg-orange-500 text-white"
                 variant="primary"
               >
                 Logout

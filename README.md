@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DEVFOLIO - Portfolio Website (Frontend)
 
-## Getting Started
+🌐 **My Portfolio Website** – Built with **Next.js**, **TypeScript**, and **Tailwind CSS**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Public Pages](#public-pages)
+- [Private Pages](#private-pages)
+- [Setup & Installation](#setup--installation)
+- [Usage](#usage)
+- [Future Enhancements](#future-enhancements)
+- [License](#license)
+
+---
+
+## Project Overview
+This project is a personal portfolio website designed to showcase my work, blogs, and professional profile.  
+It includes both **public pages** accessible by all visitors and **private pages** for the portfolio owner to manage content securely.
+
+Key highlights:
+- Secure authentication & authorization for admin access.
+- Dynamic blog management (CRUD operations) for the owner.
+- Static "About Me" section with personal details.
+- Projects showcase with live links, thumbnails, and descriptions.
+- Fully responsive design with polished UI/UX.
+
+---
+
+## Tech Stack
+- **Frontend:** Next.js (React + TypeScript)
+- **Styling:** Tailwind CSS
+- **State Management & Forms:** React Hook Form, react-hot-toast
+- **Rich Text Editor:** React Quill (for blog/project content formatting)
+- **API Calls:** Fetch API / Axios
+- **Authentication:** JWT
+
+---
+
+## Features
+
+### Public Pages (Accessible to All Visitors)
+- **Blog Management**
+  - View all blogs.
+  - View individual blog pages.
+  - ISR (Incremental Static Regeneration) to fetch new content without rebuilding the site.
+  - `getStaticPaths` + `revalidate` for individual blog pages to generate content dynamically.
+- **About Me Section**
+  - Static personal information (bio, work experience, skills).
+  - Fetched using SSG for fast performance.
+- **Projects Showcase**
+  - Displays personal projects with thumbnail, live site link, repo link, description, and features.
+  - Dynamic updates via ISR.
+
+### Private Pages (Owner Only)
+- **Authentication & Authorization**
+  - JWT-based authentication.
+  - Only the portfolio owner can access private features.
+- **Dashboard**
+  - Admin dashboard to manage blogs, projects, and other content securely.
+  - CRUD operations for blogs and projects.
+
+---
+
+## Setup & Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nahidn228/your-frontend-repo.git
+   cd your-frontend-repo
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

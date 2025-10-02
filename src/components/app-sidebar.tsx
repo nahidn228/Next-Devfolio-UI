@@ -25,12 +25,7 @@ import {
 import Logo from "./module/logo/logo";
 import { useSession } from "next-auth/react";
 
-interface IUser {
-  name: string;
-  email: string;
-  image: string;
-  id: string;
-}
+
 
 // This is sample data.
 const data = {

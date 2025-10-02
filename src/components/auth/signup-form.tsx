@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
@@ -88,18 +89,13 @@ export function SignupForm({
 
     const res = await signIn(provider, {
       redirect: false,
-      callbackUrl: "/dashboard",
     });
     if (res?.ok) {
       toast.success(`Logged in with ${provider}!`, { id: toastId });
+      router.push("/dashboard");
     } else {
       toast.error("Login failed!", { id: toastId });
     }
-
-    // console.log(`Login with ${provider}`);
-    // signIn(provider, {
-    //   callbackUrl: "/dashboard",
-    // });
   };
 
   return (

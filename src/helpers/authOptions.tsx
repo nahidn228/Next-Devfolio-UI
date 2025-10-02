@@ -33,33 +33,34 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          console.error("❌ Missing email or password", credentials);
+        if (!credentials?.password || !credentials.email) {
+          console.error("Email or Password is missing");
           return null;
         }
+
         try {
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/auth/login`,
             {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify({
                 email: credentials.email,
                 password: credentials.password,
               }),
             }
           );
-
-          console.log("🔎 Backend response status:", res.status);
-          if (!res.ok) {
-            console.error("❌ Login failed:", await res.text());
+          
+          if (!res?.ok) {
+            console.error("User Login Failed", await res.text());
             return null;
           }
 
           const result = await res.json();
           console.log("✅ Backend response JSON:", result);
 
-          // ✅ Your backend returns { success, message, data }
           const user = result?.data;
 
           if (user?.id) {
@@ -68,8 +69,6 @@ export const authOptions: NextAuthOptions = {
               name: user.name,
               email: user.email,
               image: user.picture || "",
-              role: user.role,
-              phone: user.phone,
             };
           }
           console.error("❌ No user in response");
@@ -81,9 +80,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider === "google" || account?.provider === "github") {
+      // ✅ Handle Google OAuth
+      if (account?.provider === "google") {
         try {
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`,
@@ -106,27 +107,57 @@ export const authOptions: NextAuthOptions = {
             return false;
           }
 
-          return true; // allow sign in
+          const result = await res.json();
+          
+          // ✅ Store the backend user ID
+          if (result?.data?.id) {
+            user.id = result.data.id;
+          }
+
+          return true;
         } catch (error) {
           console.error("Google signIn error:", error);
           return false;
         }
       }
-      return true; // allow other providers
+      
+      return true;
     },
 
     async jwt({ token, user }) {
-      if (user) token.id = user.id;
+      // ✅ On first sign in, add user info to token
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.picture = user.image;
+      }
       return token;
     },
 
     async session({ session, token }) {
-      if (session.user) session.user.id = token.id as string;
+      // ✅ Add user info to session
+      if (session?.user && token) {
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
+        session.user.name = token.name as string;
+        session.user.image = token.picture as string;
+      }
       return session;
     },
   },
+
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+
   secret: process.env.AUTH_SECRET,
+  
   pages: {
     signIn: "/login",
+    error: "/login",
   },
+
+  debug: process.env.NODE_ENV === "development",
 };

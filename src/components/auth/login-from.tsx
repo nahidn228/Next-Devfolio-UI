@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -38,7 +42,17 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form">) {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  // ✅ Redirect if already logged in
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/dashboard");
+    }
+  }, [status, router]);
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -48,6 +62,7 @@ export function LoginForm({
   });
 
   const onSubmit = async (values: LoginFormValues) => {
+    setIsLoading(true);
     const toastId = toast.loading("Please wait...");
     console.log("Form Submitted:", values);
 
@@ -56,41 +71,50 @@ export function LoginForm({
         redirect: false,
         email: values.email,
         password: values.password,
+        callbackUrl: "/dashboard",
       });
 
       if (res?.error) {
         console.error("Login failed:", res.error);
-        toast.error("User Login Failed", { id: toastId });
-      } else {
-        toast.success("User Login Successfully", { id: toastId });
-
-        router.push("/dashboard");
+        toast.error("Invalid email or password", { id: toastId });
+      } else if (res?.ok) {
+        toast.success("Login successful!", { id: toastId });
+        // Use window.location for a hard redirect to ensure session is loaded
+        window.location.href = "/dashboard";
       }
     } catch (error) {
       console.error("SignIn error:", error);
-      toast.error("User Login Failed", { id: toastId });
+      toast.error("Login failed. Please try again.", { id: toastId });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSocialLogin = async (provider: "google" | "github") => {
-    const toastId = toast.loading("Logging in...");
+    setIsLoading(true);
+    const toastId = toast.loading("Redirecting to login...");
 
-    const res = await signIn(provider, {
-      redirect: false,
-      callbackUrl: "/dashboard",
-    });
-    if (res?.ok) {
-      toast.success(`Logged in with ${provider}!`, { id: toastId });
-      router.push("/dashboard");
-    } else {
+    try {
+      // ✅ Use redirect: true for OAuth providers
+      await signIn(provider, {
+        callbackUrl: "/dashboard",
+        redirect: true, // Changed to true for OAuth
+      });
+    } catch (error) {
+      console.error(`${provider} login error:`, error);
       toast.error("Login failed!", { id: toastId });
+      setIsLoading(false);
     }
-
-    // console.log(`Login with ${provider}`);
-    // signIn(provider, {
-    //   callbackUrl: "/dashboard",
-    // });
   };
+
+  // Show loading state while checking authentication
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
 
   return (
     <Form {...form}>
@@ -115,7 +139,12 @@ export function LoginForm({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="m@example.com" type="email" {...field} />
+                  <Input 
+                    placeholder="m@example.com" 
+                    type="email" 
+                    disabled={isLoading}
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -123,7 +152,6 @@ export function LoginForm({
           />
 
           {/* Password */}
-
           <FormField
             control={form.control}
             name="password"
@@ -142,13 +170,15 @@ export function LoginForm({
                   <div className="relative">
                     <Input
                       type={showPassword ? "text" : "password"}
+                      disabled={isLoading}
                       {...field}
                       className="pr-10"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword((prev) => !prev)}
-                      className="absolute inset-y-0 right-2 flex items-center text-muted-foreground hover:text-foreground"
+                      disabled={isLoading}
+                      className="absolute inset-y-0 right-2 flex items-center text-muted-foreground hover:text-foreground disabled:opacity-50"
                     >
                       {showPassword ? (
                         <EyeOff className="h-5 w-5" />
@@ -165,21 +195,23 @@ export function LoginForm({
 
           <Button
             type="submit"
-            className="w-full text-white cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center"
+            disabled={isLoading}
+            className="w-full text-white cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login
+            {isLoading ? "Logging in..." : "Login"}
           </Button>
 
           {/* Divider */}
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-            <span className=" relative z-10 px-2">Or continue with</span>
+            <span className="relative z-10 px-2">Or continue with</span>
           </div>
 
           {/* GitHub login */}
           <Button
             variant="outline"
             onClick={() => handleSocialLogin("github")}
-            className="w-full  cursor-pointer"
+            disabled={isLoading}
+            className="w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             type="button"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -196,7 +228,8 @@ export function LoginForm({
             type="button"
             variant="outline"
             onClick={() => handleSocialLogin("google")}
-            className="w-full flex items-center gap-2  cursor-pointer"
+            disabled={isLoading}
+            className="w-full flex items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

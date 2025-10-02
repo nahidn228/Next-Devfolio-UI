@@ -46,7 +46,7 @@ export function NavUser({
     try {
       signOut();
       toast.success("Logout Successfully", { id: toastId });
-      router.push("/login");
+      router.push("/");
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong", { id: toastId });

@@ -2,23 +2,9 @@ import Image from "next/image";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-interface Author {
-  name: string;
-  email: string;
-  picture: string | null;
-}
 
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  thumbnail: string;
-  isFeatured: boolean;
-  tags: string[];
-  views: number;
-  createdAt: string;
-  author: Author;
-}
+
+
 
 const BlogDetails = async ({
   params,

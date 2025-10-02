@@ -1,9 +1,9 @@
 "use client";
 
-import { Github, Twitter, BookOpen, Linkedin } from "lucide-react";
+import { Github, Twitter,  Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
+
 import Logo from "@/components/module/logo/logo";
 
 const Footer = () => {

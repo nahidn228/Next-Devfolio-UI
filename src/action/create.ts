@@ -5,7 +5,6 @@ import { getUserSession } from "@/helpers/getUserSession";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-// create.ts
 export const createBlog = async (values: any) => {
   const session = await getUserSession();
 
@@ -31,6 +30,38 @@ export const createBlog = async (values: any) => {
   if (result.id) {
     revalidateTag("BLOGS");
     redirect("/dashboard/blogs");
+  }
+
+  return result;
+};
+export const createProject = async (values: any) => {
+  const session = await getUserSession();
+
+  const modifiedData = {
+    ...values,
+    authorId: session?.user?.id,
+    isFeatured: Boolean(values.isFeatured),
+    techStack: values.techStack
+      ? values.techStack.split(",").map((techStack: string) => techStack.trim())
+      : [],
+    features: values.features
+      ? values.features.split(",").map((features: string) => features.trim())
+      : [],
+  };
+
+  console.log("📌 Sending to API:", modifiedData);
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(modifiedData),
+  });
+
+  const result = await res.json();
+
+  if (result.id) {
+    revalidateTag("PROJECT");
+    redirect("/dashboard/projects");
   }
 
   return result;

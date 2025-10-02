@@ -17,6 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { createProject } from "@/action/create";
 
 // ✅ Validation schema
 const projectSchema = z.object({
@@ -35,6 +38,7 @@ const projectSchema = z.object({
 type ProjectFormValues = z.infer<typeof projectSchema>;
 
 export default function AddProjectForm() {
+  const router = useRouter();
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
@@ -43,14 +47,23 @@ export default function AddProjectForm() {
       thumbnail: "",
       liveUrl: "",
       repoUrl: "",
-      isFeatured: false, // ✅ matches schema
+      isFeatured: false,
       techStack: "",
       features: "",
     },
   });
 
-  function onSubmit(values: ProjectFormValues) {
+  async function onSubmit(values: ProjectFormValues) {
     console.log("🚀 Project Data:", values);
+
+    const toastId = toast.loading("Creating Project...");
+
+    const res = await createProject(values);
+    console.log(res);
+    if (res?.success === true) {
+      toast.success("Project creation success", { id: toastId });
+      router.push("/dashboard/projects");
+    }
   }
 
   return (
@@ -171,7 +184,7 @@ export default function AddProjectForm() {
               name="techStack"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tech Stack</FormLabel>
+                  <FormLabel>Tech Stack (comma separated)</FormLabel>
                   <FormControl>
                     <Input placeholder="e.g. React.js, TypeScript" {...field} />
                   </FormControl>
@@ -186,9 +199,9 @@ export default function AddProjectForm() {
               name="features"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Features</FormLabel>
+                  <FormLabel>Features (comma separated)</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. JWT Authentication" {...field} />
+                    <Input placeholder="e.g. JWT Authentication, SSR, ISR" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

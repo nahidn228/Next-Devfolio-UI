@@ -2,7 +2,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions } from "next-auth";
 
-
 declare module "next-auth" {
   interface Session {
     user: {
@@ -19,9 +18,6 @@ declare module "next-auth" {
     image?: string | null;
   }
 }
-
-
-
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -84,17 +80,46 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user?.id;
+    async signIn({ user, account }) {
+      if (account?.provider === "google" || account?.provider === "github") {
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: user.name,
+                email: user.email,
+                picture: user.image,
+                phone: "",
+              }),
+            }
+          );
+
+          if (!res.ok) {
+            console.error("Failed to save Google user to DB");
+            return false;
+          }
+
+          return true; // allow sign in
+        } catch (error) {
+          console.error("Google signIn error:", error);
+          return false;
+        }
       }
+      return true; // allow other providers
+    },
+
+    async jwt({ token, user }) {
+      if (user) token.id = user.id;
       return token;
     },
 
     async session({ session, token }) {
-      if (session?.user) {
-        session.user.id = token?.id as string;
-      }
+      if (session.user) session.user.id = token.id as string;
       return session;
     },
   },

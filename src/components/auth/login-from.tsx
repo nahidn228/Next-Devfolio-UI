@@ -21,6 +21,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 // ✅ Validation schema using zod
 const loginSchema = z.object({
@@ -37,6 +38,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form">) {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -46,6 +48,7 @@ export function LoginForm({
   });
 
   const onSubmit = (values: LoginFormValues) => {
+    const toastId = toast.loading("Please wait...");
     console.log("Form Submitted:", values);
 
     try {
@@ -53,18 +56,31 @@ export function LoginForm({
         ...values,
         callbackUrl: "/dashboard",
       });
-      toast.success("User Login successfully");
+      toast.success("User Login successfully", { id: toastId });
     } catch (error) {
       console.error(error);
-      toast.error("User Login Failed");
+      toast.error("User Login Failed", { id: toastId });
     }
   };
 
-  const handleSocialLogin = (provider: "google" | "github") => {
-    console.log(`Login with ${provider}`);
-    signIn(provider, {
+  const handleSocialLogin = async (provider: "google" | "github") => {
+    const toastId = toast.loading("Logging in...");
+
+    const res = await signIn(provider, {
+      redirect: false,
       callbackUrl: "/dashboard",
     });
+    if (res?.ok) {
+      toast.success(`Logged in with ${provider}!`, { id: toastId });
+      router.push("/dashboard");
+    } else {
+      toast.error("Login failed!", { id: toastId });
+    }
+
+    // console.log(`Login with ${provider}`);
+    // signIn(provider, {
+    //   callbackUrl: "/dashboard",
+    // });
   };
 
   return (

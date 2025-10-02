@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
 import { registerUser } from "@/action/auth";
+import { signIn } from "next-auth/react";
 
 // ✅ Validation schema
 const signupSchema = z
@@ -82,8 +83,23 @@ export function SignupForm({
     }
   };
 
-  const handleSocialRegister = (provider: "google" | "github") => {
-    console.log(`Register with ${provider}`);
+  const handleSocialRegister = async (provider: "google" | "github") => {
+    const toastId = toast.loading("Logging in...");
+
+    const res = await signIn(provider, {
+      redirect: false,
+      callbackUrl: "/dashboard",
+    });
+    if (res?.ok) {
+      toast.success(`Logged in with ${provider}!`, { id: toastId });
+    } else {
+      toast.error("Login failed!", { id: toastId });
+    }
+
+    // console.log(`Login with ${provider}`);
+    // signIn(provider, {
+    //   callbackUrl: "/dashboard",
+    // });
   };
 
   return (

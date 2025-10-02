@@ -21,7 +21,7 @@ const data = [
 
 export default function Projects() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+    <div className="">
       {data.map((project) => (
         <ProjectCard key={project.id} project={project} />
       ))}

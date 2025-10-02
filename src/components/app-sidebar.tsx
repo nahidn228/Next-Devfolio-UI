@@ -2,22 +2,24 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
+
   BookOpen,
   Bot,
-  Command,
+
   Frame,
-  GalleryVerticalEnd,
-  Map,
+
+  MessageSquarePlus,
+
   PieChart,
   Settings2,
+  SquarePlus,
   SquareTerminal,
 } from "lucide-react"
 
-import { NavMain } from "@/components/nav-main"
+
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+
 import {
   Sidebar,
   SidebarContent,
@@ -134,9 +136,14 @@ const data = {
       icon: PieChart,
     },
     {
-      name: "Travel",
-      url: "#",
-      icon: Map,
+      name: "Add Project",
+      url: "/dashboard/add-project",
+      icon: SquarePlus,
+    },
+    {
+      name: "Add Blog",
+      url: "/dashboard/add-blog",
+      icon: MessageSquarePlus ,
     },
   ],
 }

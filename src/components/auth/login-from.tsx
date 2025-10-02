@@ -20,6 +20,7 @@ import {
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
 // ✅ Validation schema using zod
 const loginSchema = z.object({
@@ -46,13 +47,23 @@ export function LoginForm({
 
   const onSubmit = (values: LoginFormValues) => {
     console.log("Form Submitted:", values);
-    // 🔑 handle login request here
+
+    try {
+      signIn("credentials", {
+        ...values,
+        callbackUrl: "/dashboard",
+      });
+      toast.success("User Login successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("User Login Failed");
+    }
   };
 
   const handleSocialLogin = (provider: "google" | "github") => {
     console.log(`Login with ${provider}`);
     signIn(provider, {
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
   };
 

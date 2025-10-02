@@ -529,7 +529,7 @@ export default function OrbitingSkills() {
   ];
 
   return (
-    <section className="py-20">
+    <section className="py-10">
       <h2 className="mx-auto text-center text-white text-2xl md:text-4xl font-sans py-10 md:pt-10 relative z-20 font-bold tracking-tight">
         <Cover>My Skills</Cover>
       </h2>
